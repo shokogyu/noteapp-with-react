@@ -1,34 +1,72 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Main from './components/Main'
+import Sidebar from './components/Sidebar'
+import uuid from 'react-uuid'
+import { useEffect } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes')) || [])
+  const [activeNote, setActiveNote] = useState(false)
+
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes))
+  }, [notes])
+
+  useEffect(() => {
+    if(notes.length > 0) {
+      setActiveNote(notes[0].id)
+    }
+  }, [])
+
+  const onAddNote = () => {
+    const newNote = {
+      id: uuid(),
+      title: 'New Note',
+      content: 'New Content',
+      modDate: Date.now()
+    }
+    setNotes([...notes, newNote])
+    console.log('onAddNote');
+  }
+
+  const onDeleteNote = (clickedNoteId) => {
+    const filterNotes = notes.filter((note) => note.id !== clickedNoteId)
+    setNotes(filterNotes)
+    console.log('onDeleteNote');
+
+  }
+
+  const getActiveNote = () => {
+    console.log('getacive');
+    return notes.find((note) => note.id === activeNote)
+  }
+
+  const onUpdateNote = (updatedNote) => {
+    // 修正された新しいノートの配列を返す
+    const updatedNoteArray = notes.map((note) => {
+      if(note.id === updatedNote.id) {
+        return updatedNote
+      } else {
+        return note
+      }
+    })
+
+    setNotes(updatedNoteArray)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="App">
+      <Sidebar
+        onAddNote={onAddNote}
+        notes={notes}
+        onDeleteNote={onDeleteNote}
+        activeNote={activeNote}
+        setActiveNote={setActiveNote}
+      />
+      {/* getActiveNote()とカッコをつけることで読み込まれたタイミングで実行される */}
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+    </div>
   )
 }
 
