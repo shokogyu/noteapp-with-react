@@ -31,10 +31,12 @@ function App() {
   }
 
   const onDeleteNote = (clickedNoteId) => {
-    const filterNotes = notes.filter((note) => note.id !== clickedNoteId)
-    setNotes(filterNotes)
-    console.log('onDeleteNote');
-
+    const clickedNoteTitle = notes.find(note => note.id === clickedNoteId).title;
+    if(window.confirm(`「${clickedNoteTitle}」のノートを本当に削除しますか？`)) {
+      const filterNotes = notes.filter((note) => note.id !== clickedNoteId)
+      setNotes(filterNotes)
+      console.log('onDeleteNote');
+    }
   }
 
   const getActiveNote = () => {

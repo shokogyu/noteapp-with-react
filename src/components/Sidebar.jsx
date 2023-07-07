@@ -1,5 +1,6 @@
 import React from 'react'
 import './Sidebar.css'
+import iconTrashBin from '../assets/icon_trash-bin.svg'
 
 const Sidebar = ({ onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) => {
 
@@ -8,7 +9,7 @@ const Sidebar = ({ onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) 
   return (
     <div className='app-sidebar'>
       <div className="app-sidebar-header">
-        <h1 className="app-sidebar-heading">ノート</h1>
+        <h1 className="app-sidebar-heading">Notes</h1>
         <button onClick={onAddNote} className='app-sidebar-add-btn'>追加</button>
       </div>
       <div className="app-sidebar-notes">
@@ -21,7 +22,9 @@ const Sidebar = ({ onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) 
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
               {/* 画面読み込み時に発火しないようにアロー関数で記述する */}
-              <button onClick={() => onDeleteNote(note.id)}>delete</button> 
+              <button onClick={() => onDeleteNote(note.id)}>
+                <img src={iconTrashBin} alt="" className='sidebar-delete-img' />
+              </button> 
             </div>
             <p>{note.content}</p>
             <small>{new Date(note.modDate).toLocaleDateString('ja-JP', {

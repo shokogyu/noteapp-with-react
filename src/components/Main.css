@@ -32,11 +32,22 @@ textarea {
 .app-main-note-preview {
     border-top: 1px solid #ddd;
     overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 0, 0, 0.1);
+    position: relative;
+}
+
+.preview-area-title {
+    background-color: #bdbdbd;
+    padding: 3px 1em;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 12px;
+    color: #3d3d3d;
 }
 
 .preview-title {
-    padding: 25px 25px 0 25px;
+    padding: 40px 25px 0 25px;
     margin: 0;
 }
 

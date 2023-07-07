@@ -3,7 +3,7 @@ import './Main.css'
 import ReactMarkdown from 'react-markdown'
 
 
-const Main = ({activeNote, onUpdateNote}) => {
+const Main = ({ activeNote, onUpdateNote }) => {
 
   const onEditNote = (key, value) => {
     onUpdateNote({
@@ -14,7 +14,7 @@ const Main = ({activeNote, onUpdateNote}) => {
     })
   }
 
-  if(!activeNote) {
+  if (!activeNote) {
     return <div className='no-active-note'>選択されたノートがありません</div>
   }
   return (
@@ -29,11 +29,11 @@ const Main = ({activeNote, onUpdateNote}) => {
           id=""
           placeholder='ノート内容を記入'
           onChange={(e) => onEditNote('content', e.target.value)}
-        >
-          {activeNote.content}
-        </textarea>
+          value={activeNote.content}
+        ></textarea>
       </div>
       <div className="app-main-note-preview">
+        <span className="preview-area-title">Preview</span>
         <h1 className="preview-title">{activeNote.title}</h1>
         <ReactMarkdown className="markdown-preview">
           {activeNote.content}

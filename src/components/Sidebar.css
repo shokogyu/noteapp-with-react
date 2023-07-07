@@ -49,6 +49,14 @@ button {
     justify-content: space-between;
 }
 
+.sidebar-delete-img {
+    width: 20px;
+    transition: opacity 0.3s;
+}
+.sidebar-delete-img:hover {
+    opacity: 0.6;
+}
+
 .app-sidebar-note p {
     margin: 10px 0;
 }
